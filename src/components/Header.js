@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../utils/api'; // Import the new api utility
+import api from '../utils/api'; 
 import { AuthContext } from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -41,14 +41,13 @@ const NavDropdown = ({ title, menuData, activeMenu, setActiveMenu }) => {
 
 
 const Header = () => {
-  const { isAuthenticated, user, dispatch } = useContext(AuthContext);
+  const { isAuthenticated, dispatch } = useContext(AuthContext); // Removed 'user' as it was unused
   const [navData, setNavData] = useState(null);
   const [activeMenu, setActiveMenu] = useState(null);
 
   useEffect(() => {
     const fetchNavData = async () => {
         try {
-            // Use the 'api' instance now. The URL is just the endpoint.
             const res = await api.get('/jobs/nav-data');
             setNavData(res.data);
         } catch (error) {

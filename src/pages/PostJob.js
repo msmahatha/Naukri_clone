@@ -1,14 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../utils/api'; // Import the new api utility
-import { AuthContext } from '../context/AuthContext';
+import api from '../utils/api';
 import { toast } from 'react-toastify';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const PostJob = () => {
-  const { token } = useContext(AuthContext); // Token is now handled by the api utility, but we can keep it here for now
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Removed unused token from context
 
   const [formData, setFormData] = useState({
     title: '',
@@ -42,7 +40,6 @@ const PostJob = () => {
         requirements: requirements.split(',').map(req => req.trim()), // Convert comma-separated string to array
       };
 
-      // Use the 'api' instance. The token is added automatically.
       await api.post('/jobs', jobData);
       
       toast.success('Job posted successfully!');
